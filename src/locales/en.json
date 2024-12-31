@@ -1,0 +1,9 @@
+{
+  "message": {
+    "hello": "hello world",
+    "info": "information"
+  },
+  "setting": {
+    "title": "setting"
+  }
+}
