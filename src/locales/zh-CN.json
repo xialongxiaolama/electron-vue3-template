@@ -1,0 +1,9 @@
+{
+  "message": {
+    "hello": "你好",
+    "info": "消息"
+  },
+  "setting": {
+    "title": "设置"
+  }
+}
