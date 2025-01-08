@@ -1,5 +1,23 @@
-# Vue 3 + TypeScript + Vite
+# Electron + Vue 3 + TypeScript + Vite
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+electron + vue3 + typescript + vite 模版。集成了各类插件，支持组件按需加载和自动注册、路由自动注册、i18n、TailwindCss、VueUse等。
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+
+## 快速开始
+
+```sh
+// 安装 pnpm
+npm i -g pnpm 
+
+// 安装依赖
+pnpm i
+
+// 运行
+pnpm dev
+```
+
+## 构建
+```sh
+pnpm build
+```
+

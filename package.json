@@ -3,6 +3,7 @@
   "author": "三年练习生",
   "main": "dist/electron/main/index.js",
   "version": "0.0.1",
+  "description": "electron-vite-vue3-electron基础框架",
   "type": "module",
   "scripts": {
     "dev": "vite",
