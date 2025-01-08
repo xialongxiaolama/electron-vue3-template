@@ -1,14 +1,15 @@
 /**
  * @name AutoRegistryComponents
- * @description 按需加载，自动引入组件
+ * @description 自动注册本地组件和按需加载 UI 库的组件
  */
 import Components from 'unplugin-vue-components/vite'
 
 import {
-  // ElementPlusResolver,
-  PrimeVueResolver,
+  ElementPlusResolver,
   VueUseComponentsResolver
 } from 'unplugin-vue-components/resolvers'
+
+import {PrimeVueResolver} from '@primevue/auto-import-resolver';
 export const AutoRegistryComponents = () =>{
   return Components({
     dirs: ['src/components'],
@@ -21,7 +22,7 @@ export const AutoRegistryComponents = () =>{
     include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
     exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
     resolvers: [
-      // ElementPlusResolver(),
+      ElementPlusResolver(),
       PrimeVueResolver(),
       VueUseComponentsResolver(),
     ]

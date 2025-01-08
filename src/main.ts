@@ -6,6 +6,7 @@ import App from './App.vue'
 import pinia from '@/store/index'
 import i18n from './i18n'
 import PrimeVue from "primevue/config";
+import ToastService from 'primevue/toastservice';
 import Aura from "@primevue/themes/aura";
 
 // 导入svg 引入文件
@@ -25,6 +26,7 @@ app.use(PrimeVue, {
     preset: Aura
   }
 })
+app.use(ToastService)
 // 加载完成清除preload中加载等待
 app.mount('#app').$nextTick(() => {
   postMessage({ payload: 'removeLoading' }, '*')
