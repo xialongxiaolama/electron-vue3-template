@@ -3,7 +3,6 @@ import { spawn } from 'child_process'
 import { mainWindow } from '../index.ts'
 export default function setupDevtools(){
   ipcMain.on('open-devtool',(event,data)=>{
-    mainWindow.webContents.send('devtools-open-success', 1313123)
 
     const vueDevTools = spawn('npm', ['run', 'vue-tools'],{
       cwd: process.cwd(), // 设置命令运行目录

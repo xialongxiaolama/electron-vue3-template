@@ -16,6 +16,7 @@
   ],
   "mac": {
     "artifactName": "${productName}_${version}.${ext}",
+    "icon": "dist/icon_rui.ico",
     "target": [
       "dmg"
     ]

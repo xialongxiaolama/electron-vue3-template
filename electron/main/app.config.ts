@@ -13,11 +13,11 @@ export const ROOT_PATH = {
 
 export const windowConfig:Electron.BrowserWindowConstructorOptions = {
   title: '桌面端',
-  frame: false,//关闭边框（标题栏，工具栏等）
+  frame: true,//关闭边框（标题栏，工具栏等）
   // titleBarStyle: 'hidden',//隐藏标题栏
   useContentSize: true,
   transparent: false,
-  show:false,
+  show:true,
   icon: path.join(ROOT_PATH.public, 'icon_rui.ico'),
   webPreferences: {
     sandbox: true,                // 启用沙盒模式 

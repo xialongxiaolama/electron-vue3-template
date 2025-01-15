@@ -1,9 +1,10 @@
-import { app, BrowserWindow, shell, ipcMain , session ,type BrowserWindowConstructorOptions} from 'electron'
+import { app, BrowserWindow, shell, ipcMain ,type BrowserWindowConstructorOptions} from 'electron'
 import path from 'node:path'
 import { createTray } from "./tray"
 import { createMenu } from './menu'
 import setupIPC from './ipc'
 import os from 'node:os'
+
 import { ROOT_PATH , __dirname , windowConfig , menuConfig } from './app.config'
 // Or if you can not use ES6 imports
 
@@ -33,9 +34,8 @@ function initApp(){
   if (process.platform === 'win32') {
     app.setAppUserModelId(app.getName())
   }
-
-  //win7 禁用硬盘加速
-  if (os.release().startsWith('6.1')) {
+   //win7 linux mac  禁用硬件加速 
+  if (os.release().startsWith('6.1')||os.platform() === 'linux'||os.platform() === 'darwin') {
     app.disableHardwareAcceleration()
   }
 
