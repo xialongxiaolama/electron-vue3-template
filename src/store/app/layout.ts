@@ -4,7 +4,7 @@ import { layout , asideType } from './types'
   state: ():layout => ({
     asideDisplay: 'none',
     headerDisplay: true,
-    footerDisplay: true,
+    footerDisplay: false,
     isFullScreen: false,
   }),
   persist: {

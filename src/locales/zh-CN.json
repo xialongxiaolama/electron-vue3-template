@@ -5,5 +5,8 @@
   },
   "setting": {
     "title": "设置"
+  },
+  "tools":{
+    "openBtn": "打开开发工具"
   }
 }

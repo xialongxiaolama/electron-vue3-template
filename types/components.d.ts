@@ -17,5 +17,6 @@ declare module 'vue' {
     SvgIcon: typeof import('./../src/components/SvgIcon/index.vue')['default']
     Tag: typeof import('primevue/tag')['default']
     Toast: typeof import('primevue/toast')['default']
+    VueDevTools: typeof import('./../src/components/VueDevTools/index.vue')['default']
   }
 }

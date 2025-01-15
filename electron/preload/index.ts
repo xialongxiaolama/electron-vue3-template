@@ -4,7 +4,6 @@ import { ipcRenderer , contextBridge } from 'electron'
 // webPreferences 中 contextIsolation 默认为true 隔离了
 contextBridge.exposeInMainWorld('ipcRenderer',{
   on(...args:Parameters<typeof ipcRenderer.on>){
-    // channel: string, listener: (event: Electron.IpcRendererEvent, ...args: any[]) => void
     const [channel, listener] = args
     return ipcRenderer.on(channel, (event, ...args) => listener(event, ...args))
   },
@@ -20,6 +19,10 @@ contextBridge.exposeInMainWorld('ipcRenderer',{
     const [channel, ...omit] = args
     return ipcRenderer.invoke(channel, ...omit)
   }
+})
+contextBridge.exposeInMainWorld('process',{
+  argv: process.argv,
+  env: process.env,
 })
 
 // 添加加载等待动画

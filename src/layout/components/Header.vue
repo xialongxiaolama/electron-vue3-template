@@ -1,5 +1,8 @@
 <template>
-  <div class='header flex justify-end'>
+  <div class='header flex justify-between'>
+    <div v-if="env&&env==='development'">
+      <Tag value="Primary">{{ env }}</Tag>
+    </div>
     <div class="btn-list flex">
       <span @click="handleSetting"> {{ $t('setting.title') }}</span>
       <span @click="handleSetting"> _ </span>
@@ -14,6 +17,7 @@ const router = useRouter()
 function handleSetting(){
   router.push('/setting')
 }
+const env = window.process.env.NODE_ENV
 </script>
 
 <style lang='scss' scoped>

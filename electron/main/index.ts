@@ -2,7 +2,7 @@ import { app, BrowserWindow, shell, ipcMain , session ,type BrowserWindowConstru
 import path from 'node:path'
 import { createTray } from "./tray"
 import { createMenu } from './menu'
-import { setupIPC } from './ipc'
+import setupIPC from './ipc'
 import os from 'node:os'
 import { ROOT_PATH , __dirname , windowConfig , menuConfig } from './app.config'
 // Or if you can not use ES6 imports
@@ -22,7 +22,7 @@ import { ROOT_PATH , __dirname , windowConfig , menuConfig } from './app.config'
 // file:///D:/workspace/electron/electron-vite-vue/dist-electron/main/index.js 转化为 D:\workspace\electron\electron-vite-vue\dist-electron\main
 
 // 主窗口
-let mainWindow: BrowserWindow | null = null
+export let mainWindow: BrowserWindow;
 
 // 开发环境URL
 const devServerUrl = process.env['VITE_DEV_SERVER_URL'] || ''

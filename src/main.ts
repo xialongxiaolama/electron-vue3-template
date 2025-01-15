@@ -14,9 +14,12 @@ import 'virtual:svg-icons-register'
 import 'uno.css'
 import 'virtual:uno.css'
 
-// if (process.env.NODE_ENV === 'development') {
+// 是否打开devtools
+// if (process.env.npm_lifecycle_event==='devtool') {
+//   // 关闭安全通知
 //   devtools.connect()
 // }
+
 const app = createApp(App)
 app.use(router)
 app.use(i18n)

@@ -2,9 +2,13 @@
 window.addEventListener('contextmenu',()=>{
   ipcRenderer.send('show-context-menu','传递数据---')
 })
+window.ipcRenderer.on('main-process-message',(event,arg)=>{
+  console.log('main-process-message',arg)
+})
 </script>
 
 <template>
+
   <router-view></router-view>
 </template>
 
