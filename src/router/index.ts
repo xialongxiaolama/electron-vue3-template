@@ -17,7 +17,6 @@ if (import.meta.hot) {
   handleHotUpdate(router)
 }
 router.beforeEach((to, from, next) => {
-  console.log(`output->to`,to)
   NProgress.start()
   next()
 })

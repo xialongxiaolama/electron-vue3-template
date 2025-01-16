@@ -13,15 +13,15 @@ export const ROOT_PATH = {
 
 export const windowConfig:Electron.BrowserWindowConstructorOptions = {
   title: '桌面端',
-  frame: true,//关闭边框（标题栏，工具栏等）
-  // titleBarStyle: 'hidden',//隐藏标题栏
+  frame: false,//关闭边框（标题栏，工具栏等）
+  titleBarStyle: 'hidden',//隐藏标题栏
   useContentSize: true,
   transparent: false,
   show:true,
   icon: path.join(ROOT_PATH.public, 'icon_rui.ico'),
   webPreferences: {
     sandbox: true,                // 启用沙盒模式 
-    nodeIntegration: true,       // 渲染进程是否Node.js 集成
+    nodeIntegration: false,       // 渲染进程是否Node.js 集成
     contextIsolation: true,      //  是否在独立 JavaScript 环境中运行 Electron API和指定的preload 脚本. 默认为 true
     preload:path.join(__dirname, '../preload/index.mjs'), //预加载文件 可以向渲染进程暴露 Node.js API
   },

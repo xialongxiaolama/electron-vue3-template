@@ -1,23 +1,30 @@
 <template>
-    <div>
-      <Button v-if="isShowBtn" :label="$t('tools.openBtn')" size="small" @click="openDevtool"/>
+    <div v-if="isShowBtn">
+      <Button v-show="!isOpen" :label="$t('tools.openBtn')" size="small" @click="openDevtools"/>
+      <Button v-show="isOpen" :label="$t('tools.closeBtn')" size="small" @click="closeDevTools"/>
     </div>
 </template>
 
 <script setup lang='ts' name=''>
-import { devtools } from '@vue/devtools'
-// const { proxy } = getCurrentInstance()
-// const router = useRouter()
-// const route = useRoute()
 const isShowBtn = process.env.NODE_ENV === 'development';
+const isOpen = ref(!!sessionStorage.getItem('DEVTOOLS_STATE'))
 
-function openDevtool(){
-  ipcRenderer.send('open-devtool');
+function openDevtools(){
+  ipcRenderer.send('open-devtools');
 }
-ipcRenderer.on('devtools-open-success',(event,arg)=>{
-  console.log('devtools-open-success',arg)
-  devtools.connect()
+function closeDevTools(){
+  ipcRenderer.send('close-devtools');
+}
+
+ipcRenderer.on('devtools-open-success',()=>{
+  isOpen.value = true
+  sessionStorage.setItem('DEVTOOLS_STATE',true+'')
 })
+ipcRenderer.on('devtools-closed',()=>{
+  isOpen.value = false
+  sessionStorage.setItem('DEVTOOLS_STATE','')
+})
+
 </script>
 
 <style lang='scss' scoped>

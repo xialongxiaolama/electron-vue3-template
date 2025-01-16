@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { devtools } from '@vue/devtools'
 import '@/assets/styles/style.css'
 import router from './router'
 import App from './App.vue'
@@ -14,6 +15,12 @@ import 'uno.css'
 import 'virtual:uno.css'
 
 
+// Make sure to invoke devtools connect function before creating Vue App, otherwise it might not work as expected.
+const openState = sessionStorage.getItem('DEVTOOLS_STATE')
+
+// TODO 监听工具初始化后连接
+openState&&devtools.connect()
+
 const app = createApp(App)
 app.use(router)
 app.use(i18n)
@@ -23,6 +30,8 @@ app.use(PrimeVue, {
     preset: Aura
   }
 })
+
+console.log('创建vue');
 app.use(ToastService)
 // 加载完成清除preload中加载等待
 app.mount('#app').$nextTick(() => {

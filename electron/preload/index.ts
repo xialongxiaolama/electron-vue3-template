@@ -1,5 +1,7 @@
 import { ipcRenderer , contextBridge } from 'electron'
 
+console.log('preload.js loaded successfully');
+
 // 通过预加载脚本 向渲染进程中暴露主线程中的方法
 // webPreferences 中 contextIsolation 默认为true 隔离了
 contextBridge.exposeInMainWorld('ipcRenderer',{

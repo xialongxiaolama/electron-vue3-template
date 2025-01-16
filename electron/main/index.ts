@@ -1,5 +1,6 @@
 import { app, BrowserWindow, shell, ipcMain ,type BrowserWindowConstructorOptions} from 'electron'
 import path from 'node:path'
+import { vueDevTools } from './ipc/devtools'
 import { createTray } from "./tray"
 import { createMenu } from './menu'
 import setupIPC from './ipc'
@@ -101,6 +102,11 @@ function setupAPPListeners(){
   // 窗口关闭事件
   app.on('window-all-closed',()=>{
     if (process.platform !== 'darwin') app.quit()
+  })
+
+  app.on('before-quit',()=>{
+    console.log('app-quit');
+    vueDevTools.closeDevTools()
   })
 
   // 处理子窗口创建
