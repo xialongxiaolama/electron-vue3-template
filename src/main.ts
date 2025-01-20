@@ -28,7 +28,10 @@ app.use(pinia)
 app.use(PrimeVue, {
   theme: {
     preset: Aura
-  }
+  },
+  csp: {
+    nonce: '...'
+}
 })
 
 console.log('创建vue');

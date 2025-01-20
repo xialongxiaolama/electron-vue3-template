@@ -37,12 +37,12 @@ function loadMenu(tray:Tray){
   ]);
   tray.setContextMenu(rightMenu)
 }
-export function createTray(win:BrowserWindow){
+export function createTray(_win:BrowserWindow){
   const mainWindow = getMainWindow();
   const tray = new Tray(nativeImage.createFromPath(join(process.cwd(), '/public/icon_rui.ico')));
   loadMenu(tray);
   tray.setToolTip('瑞普斯客户端');
-  tray.on('click',(...arg)=>{
+  tray.on('click',(..._arg)=>{
     if (mainWindow) {
       mainWindow.show();
       mainWindow.focus();

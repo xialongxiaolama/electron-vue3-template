@@ -34,7 +34,7 @@
     "artifactName": "${productName}_${version}.${ext}"
   },
   "nsis": {
-    "shortcutName": "瑞谱斯客户端",
+    "shortcutName": "客户端",
     "oneClick": false,
     "perMachine": true,
     "allowToChangeInstallationDirectory": true,

@@ -10,7 +10,7 @@
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
     <script>
-      console.log(`%c --运行环境:${process.env.NODE_ENV}--`,'color:red;font-size:20px;line-height:30px;text-align:center;');
+      console.log(`%c --运行环境:${process.env.NODE_ENV||'production'}--`,'color:red;font-size:20px;line-height:30px;text-align:center;');
       const meta = document.createElement('meta');
       
       // ! process 通过 预加载插件注入到全局变量中

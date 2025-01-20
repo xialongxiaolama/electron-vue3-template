@@ -1,11 +1,11 @@
 import { app, BrowserWindow, shell, ipcMain ,type BrowserWindowConstructorOptions} from 'electron'
 import path from 'node:path'
-import { vueDevTools } from './ipc/devtools'
+import { vueDevTools } from './devtools'
 import { createTray } from "./tray"
 import { createMenu } from './menu'
+import { shortcutManager , defaultShortcuts } from './shortcut'
 import setupIPC from './ipc'
 import os from 'node:os'
-
 import { ROOT_PATH , __dirname , windowConfig , menuConfig } from './app.config'
 // Or if you can not use ES6 imports
 
@@ -43,7 +43,7 @@ function initApp(){
   // 获取实例锁 ,获取失败代表已经有一个实例,则退出
   if (!app.requestSingleInstanceLock()) {
     app.quit()
-    process.exit(0)
+    // process.exit(0)
   }
 }
 
@@ -105,7 +105,6 @@ function setupAPPListeners(){
   })
 
   app.on('before-quit',()=>{
-    console.log('app-quit');
     vueDevTools.closeDevTools()
   })
 
@@ -133,6 +132,7 @@ async function bootstrap() {
   
   await app.whenReady()
   const window = createWindow(windowConfig)
+  shortcutManager.register(defaultShortcuts)
   createMenu(menuConfig)
   createTray(window) // 创建托盘
   setupAPPListeners()
