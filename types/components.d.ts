@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('primevue/button')['default']
+    ConfirmDialog: typeof import('primevue/confirmdialog')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     Form: typeof import('@primevue/forms/form')['default']
     InputOtp: typeof import('primevue/inputotp')['default']

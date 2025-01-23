@@ -104,8 +104,14 @@ function setupAPPListeners(){
     if (process.platform !== 'darwin') app.quit()
   })
 
+  // 在应用开始关闭进程时触发
   app.on('before-quit',()=>{
     vueDevTools.closeDevTools()
+  })
+
+  // 所有窗口关闭,并且应用准备退出前 
+  app.on('will-quit',()=>{
+    shortcutManager.unregisterAll()
   })
 
   // 处理子窗口创建
@@ -123,7 +129,6 @@ function setupAPPListeners(){
       childWindow.loadURL(`${devServerUrl}/#${arg}`)
     }
   })
-  setupIPC()
 }
 
 // 应用启动
@@ -131,11 +136,12 @@ async function bootstrap() {
   initApp()
   
   await app.whenReady()
+  setupIPC()
+  createMenu(menuConfig)
+  setupAPPListeners()
   const window = createWindow(windowConfig)
   shortcutManager.register(defaultShortcuts)
-  createMenu(menuConfig)
   createTray(window) // 创建托盘
-  setupAPPListeners()
 }
 
 // 启动应用

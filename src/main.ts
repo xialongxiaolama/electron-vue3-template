@@ -8,6 +8,7 @@ import i18n from './i18n'
 import PrimeVue from "primevue/config";
 import ToastService from 'primevue/toastservice';
 import Aura from "@primevue/themes/aura";
+import ConfirmationService from 'primevue/confirmationservice';
 
 // 导入svg 引入文件
 import 'virtual:svg-icons-register'
@@ -31,10 +32,9 @@ app.use(PrimeVue, {
   },
   csp: {
     nonce: '...'
-}
+  }
 })
-
-console.log('创建vue');
+app.use(ConfirmationService)
 app.use(ToastService)
 // 加载完成清除preload中加载等待
 app.mount('#app').$nextTick(() => {

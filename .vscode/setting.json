@@ -13,6 +13,7 @@
         "vue",
         "js"
     ],
-    "i18n-ally.sortKeys": true,
-  "editor.formatOnSave": true
+  "i18n-ally.sortKeys": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

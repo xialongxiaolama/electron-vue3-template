@@ -23,6 +23,8 @@
     <aside v-if="layoutStore.asideDisplay==='right'" class="w-16">
       <Aside></Aside>
     </aside>
+    <Toast />
+    <ConfirmDialog></ConfirmDialog>
   </div>
 </template>
 

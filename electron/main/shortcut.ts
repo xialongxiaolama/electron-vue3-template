@@ -77,6 +77,7 @@ class ShortcutManager{
     const arr =  values.map(item=>{
       return {
         key:item.key,
+        action:item.action,
         description:item.description
       }
     })

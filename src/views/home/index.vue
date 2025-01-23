@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <Toast /> 
     <SvgIcon name="svg-github" />
     <Button  severity="success" :label="$t('message.hello')"/>
     <el-button type="primary" size="default" >{{ $t('message.hello') }}</el-button>
