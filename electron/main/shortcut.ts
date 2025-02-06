@@ -20,7 +20,7 @@ export const defaultShortcuts:ShortcutConfig[] = [
     action:'show',
     description:'显示窗口',
     handler:()=>{
-      mainWindow.show()
+      mainWindow?.show()
     }
   },
   {

@@ -15,7 +15,7 @@ class VueDevTools{
   openDevTools(){
     if (this.vueDevToolsProcess) {
       console.log('Vue DevTools is already running.');
-      return mainWindow.webContents.send('devtools-open-success')
+      return mainWindow?.webContents.send('devtools-open-success')
     }
     const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 
@@ -25,14 +25,14 @@ class VueDevTools{
     });
     this.vueDevToolsProcess.stdout.on('data', (data) => {
       if (data.toString().includes('listening on')) {
-        mainWindow.webContents.send('devtools-open-success', data.toString());
+        mainWindow?.webContents.send('devtools-open-success', data.toString());
       }
     });
 
     this.vueDevToolsProcess.on('close', (code) => {
       console.log(`Vue DevTools process exited with code ${code}`);
       this.vueDevToolsProcess = null;
-      mainWindow.webContents.send('devtools-closed');
+      mainWindow?.webContents.send('devtools-closed');
     });
   }
   closeDevTools(){

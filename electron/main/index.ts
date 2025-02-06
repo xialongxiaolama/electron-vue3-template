@@ -24,7 +24,7 @@ import { ROOT_PATH , __dirname , windowConfig , menuConfig } from './app.config'
 // file:///D:/workspace/electron/electron-vite-vue/dist-electron/main/index.js 转化为 D:\workspace\electron\electron-vite-vue\dist-electron\main
 
 // 主窗口
-export let mainWindow: BrowserWindow;
+export let mainWindow: BrowserWindow|null = null;
 
 // 开发环境URL
 const devServerUrl = process.env['VITE_DEV_SERVER_URL'] || ''
@@ -43,7 +43,7 @@ function initApp(){
   // 获取实例锁 ,获取失败代表已经有一个实例,则退出
   if (!app.requestSingleInstanceLock()) {
     app.quit()
-    // process.exit(0)
+    process.exit(0)
   }
 }
 
@@ -101,6 +101,7 @@ function setupAPPListeners(){
 
   // 窗口关闭事件
   app.on('window-all-closed',()=>{
+    mainWindow = null
     if (process.platform !== 'darwin') app.quit()
   })
 
@@ -145,4 +146,4 @@ async function bootstrap() {
 }
 
 // 启动应用
-bootstrap().catch(console.error)
+bootstrap()

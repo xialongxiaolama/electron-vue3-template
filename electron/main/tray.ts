@@ -41,7 +41,7 @@ export function createTray(_win:BrowserWindow){
   const mainWindow = getMainWindow();
   const tray = new Tray(nativeImage.createFromPath(join(process.cwd(), '/public/icon_rui.ico')));
   loadMenu(tray);
-  tray.setToolTip('瑞普斯客户端');
+  tray.setToolTip('xxx客户端');
   tray.on('click',(..._arg)=>{
     if (mainWindow) {
       mainWindow.show();
