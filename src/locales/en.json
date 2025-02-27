@@ -9,5 +9,8 @@
   "tools": {
     "openBtn": "Open dev-tool",
     "closeBtn": "Close dev-tool"
+  },
+  "device": {
+    "openUsbDetect": "open device detect"
   }
 }

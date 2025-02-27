@@ -4,7 +4,7 @@ import { routes, handleHotUpdate } from 'vue-router/auto-routes'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
-import layout from './layout'
+import layout from '@/router/layout'
 
 layout[0].children = routes
 

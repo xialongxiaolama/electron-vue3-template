@@ -1,14 +1,15 @@
 <template>
     <div class='layout-aside'>
-       
+       <div v-for="menuItem in layout[0].children" :key="menuItem.path">
+            <router-link :to="menuItem.children[0].name">{{ menuItem.children[0].name }}</router-link>
+       </div>
     </div>
 </template>
 
 <script setup name='Aside'>
+import layout from '@/router/layout'
 
-// const { proxy } = getCurrentInstance()
-// const router = useRouter()
-// const route = useRoute()
+console.log("router",layout);
     
 </script>
 

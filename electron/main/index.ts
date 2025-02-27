@@ -7,6 +7,7 @@ import { shortcutManager , defaultShortcuts } from './shortcut'
 import setupIPC from './ipc'
 import os from 'node:os'
 import { ROOT_PATH , __dirname , windowConfig , menuConfig } from './app.config'
+
 // Or if you can not use ES6 imports
 
 // The built directory structure

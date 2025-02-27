@@ -63,6 +63,12 @@ npm i -g pnpm
 # 安装依赖
 pnpm i
 
+# 如果需要使用serialport 插件,需要运行 (新版本node 已经包含了这些模块,不用瞎子啊)
+# serialport 插件包含C++扩展,需要 node-gyp 将C++编译为 node 可加载.node 二进制模块
+# node-gyp 基于GYP 构建系统, GYP时python编写, 所以运行时需要python 环境和 window 原生C++的相关开发依赖
+# npm --python-mirror=https://npmmirror.com/mirrors/python/  install --global windows-build-tools
+
+
 # 运行
 pnpm dev
 ```

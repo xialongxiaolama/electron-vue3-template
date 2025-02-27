@@ -6,8 +6,11 @@
   "setting": {
     "title": "设置"
   },
-  "tools":{
+  "tools": {
     "openBtn": "打开开发工具",
     "closeBtn": "关闭开发工具"
+  },
+  "device": {
+    "openUsbDetect": "打开设备监听"
   }
 }
