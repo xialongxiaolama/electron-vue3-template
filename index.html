@@ -21,7 +21,7 @@
       // 是否对其他资源有默认策略限制 |	否 |	是（限制所有资源加载来源为同源）
       // 安全性 |	较低（可能存在 XSS 漏洞） |	较高（禁止内联脚本，减少攻击面）
 
-      const content = process.env.NODE_ENV === 'development' ? "script-src 'self' 'unsafe-inline';" : "default-src 'self'; script-src 'self';";
+      const content = process.env.NODE_ENV === 'development' ? "script-src 'self' 'unsafe-inline';" : "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self';";
       
       meta.setAttribute('http-equiv', 'Content-Security-Policy');
       meta.setAttribute('content',content);

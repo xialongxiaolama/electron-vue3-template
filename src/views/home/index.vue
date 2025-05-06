@@ -1,33 +1,30 @@
 <template>
   <div class="home">
-    <SvgIcon name="svg-github" />
-    <Button @click="testLink">连接测试</Button>
+    {{bzStore.$state.imeiBZ}}
+    <InputText v-model="msg" type="text" size="small" placeholder="Small" />
+    <Button @click="send" severity="secondary" label="发送通知"/>
   </div>
 </template>
 
 
 <script setup lang="ts">
-import DeviceManage from '@/utils/DeviceManage'
-const device = ref<Device>();
-const deviceList = ref<Device[]>([]);
-
-console.log(DeviceManage);
-const VID = 0x10C4;
-const PID = 0xEA60;
-
-ipcRenderer.invoke('get-ports-list').then((res) => {
-  console.log(res)
-  deviceList.value = res
-})
-
-const testLink = ()=>{
-  device.value = deviceList.value.find((item)=>{
-    console.log(item.deviceDescriptor.idProduct,item.deviceDescriptor.idVendor);
-      return item.deviceDescriptor.idProduct === PID && item.deviceDescriptor.idVendor === VID
-  })
-  device.value
+import useBZStore from '@/store/device/BZStore'
+const bzStore = useBZStore()
+console.log('首页');
+const msg = ref('')
+async function send(){
+  const options:Electron.NotificationConstructorOptions = {
+    title:'提示信息',
+    subtitle:'子标题',
+    icon:"https://www.dmoe.cc/random.php",
+    body: msg.value,
+    silent: false,
+    hasReply: true, // mac 有效
+    replyPlaceholder: "请输入内容", // mac有效
+    closeButtonText:"确认关闭吗"
+  }
+  await ipcRenderer.invoke('notify', '通知', options)
 }
-
 </script>
 
 <style lang="scss" scoped>

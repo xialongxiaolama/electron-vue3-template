@@ -8,9 +8,6 @@
 
 <script setup name='Aside'>
 import layout from '@/router/layout'
-
-console.log("router",layout);
-    
 </script>
 
 <style lang='scss' scoped>

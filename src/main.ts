@@ -15,10 +15,8 @@ import 'virtual:svg-icons-register'
 import 'uno.css'
 import 'virtual:uno.css'
 
-
 // Make sure to invoke devtools connect function before creating Vue App, otherwise it might not work as expected.
 const openState = sessionStorage.getItem('DEVTOOLS_STATE')
-
 // TODO 监听工具初始化后连接
 openState&&devtools.connect()
 
@@ -34,10 +32,13 @@ app.use(PrimeVue, {
     nonce: '...'
   }
 })
+import('@/usbPlugins/USBManage')
+
 app.use(ConfirmationService)
 app.use(ToastService)
 // 加载完成清除preload中加载等待
 app.mount('#app').$nextTick(() => {
+  console.log('渲染完毕');
   postMessage({ payload: 'removeLoading' }, '*')
 })
 

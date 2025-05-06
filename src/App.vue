@@ -1,16 +1,13 @@
-<script setup lang="ts">
-window.addEventListener('contextmenu',()=>{
-  ipcRenderer.send('show-context-menu','传递数据---')
-})
-window.ipcRenderer.on('main-process-message',(event,arg)=>{
-  console.log('main-process-message',arg)
-})
-</script>
-
 <template>
-
   <router-view></router-view>
 </template>
+<script setup lang="ts">
+const router = useRouter()
+const token = localStorage.getItem('token')
+if(!token){
+  router.push('/login')
+}
+</script>
 
 <style scoped>
 .logo {

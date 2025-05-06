@@ -36,7 +36,7 @@ export const defaultShortcuts:ShortcutConfig[] = [
     action:'quit',
     description:'退出软件',
     handler:()=>{
-      app.quit()
+      app.exit()
     }
   }
 ]

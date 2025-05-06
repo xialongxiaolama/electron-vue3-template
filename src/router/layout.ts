@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 import Layout from '@/layout/index.vue'
+import Login from '@/views/login/index.vue'
 
 const router: RouteRecordRaw[] = [
   {
@@ -10,6 +11,11 @@ const router: RouteRecordRaw[] = [
     component: Layout,
     children: [],
   },
+  {
+    path:'/login',
+    name:'login',
+    component: Login
+  }
 ]
 
 export default router

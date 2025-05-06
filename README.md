@@ -47,16 +47,16 @@ project-name/
 - 内置vue-devtools工具 快捷开发调试
 - ...
 
+## 项目环境
+
+node : v20.9.0
+
+python : 3.9
+<!-- node-gyp@9.4 依赖于python 中的distutils 。从python3.11开始distutils 被setuptools 工具替代 -->
 
 ## 快速开始
 
 ```sh
-# 克隆项目
-https://gitee.com/xialongxiaolama/electron-vue.git
-
-# 切换分支
- git checkout v1
-
 # 推荐安装 pnpm node > v18
 npm i -g pnpm 
 

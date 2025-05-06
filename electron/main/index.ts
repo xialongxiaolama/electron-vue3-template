@@ -60,8 +60,11 @@ function createWindow(windowConfig:BrowserWindowConstructorOptions) {
     // Open devTool if the app is not packaged
     mainWindow.webContents.openDevTools()
   }
-  
-  // 窗口加载完成事件
+  // 窗口首次渲染完成显示
+  mainWindow.on('ready-to-show',()=>{
+    mainWindow?.show()
+  })
+  // 窗口资源加载完毕显示
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow?.webContents.send('main-process-message', new Date().toLocaleString())
   })

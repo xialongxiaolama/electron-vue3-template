@@ -11,6 +11,7 @@ declare module 'vue' {
     ConfirmDialog: typeof import('primevue/confirmdialog')['default']
     Form: typeof import('@primevue/forms/form')['default']
     InputOtp: typeof import('primevue/inputotp')['default']
+    InputText: typeof import('primevue/inputtext')['default']
     Message: typeof import('primevue/message')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

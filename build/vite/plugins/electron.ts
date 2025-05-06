@@ -11,7 +11,7 @@ export const electronBuild = ( isBuild: boolean )=>{
           minify: isBuild,
           outDir: 'dist/electron/main',
           rollupOptions: {
-            external:['usb','SerialPort'],
+            external:['usb','SerialPort','node-hid'],
           }
         },
       }

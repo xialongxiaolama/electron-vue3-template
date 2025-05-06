@@ -12,11 +12,11 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes: layout,
 })
-
 if (import.meta.hot) {
   handleHotUpdate(router)
 }
 router.beforeEach((to, from, next) => {
+  console.log(to,from);
   NProgress.start()
   next()
 })

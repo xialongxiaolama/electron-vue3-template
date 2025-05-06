@@ -17,7 +17,8 @@ export const windowConfig:Electron.BrowserWindowConstructorOptions = {
   titleBarStyle: 'hidden',//隐藏标题栏
   useContentSize: true,
   transparent: false,
-  show:true,
+  backgroundColor:'2d2d2d',
+  show:false,
   icon: path.join(ROOT_PATH.public, 'icon_rui.ico'),
   webPreferences: {
     sandbox: true,                // 启用沙盒模式 

@@ -43,6 +43,6 @@ export const vueRouterPlugin = () => {
     ], //生成路由文件夹
     dts: 'types/typed-router.d.ts', //生成路由类型文件
     extensions: ['.page.vue', '.vue', '.md'], //生成路由的扩展名
-    exclude: ['**/components/**'], //排除生成路由的文件夹
+    exclude: ['**/components/**','**/login/**'], //排除生成路由的文件夹
   })
 }
