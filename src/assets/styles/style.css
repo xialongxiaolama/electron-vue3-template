@@ -8,7 +8,7 @@
   background-color: #242424;
 
   font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility; /* 告诉浏览器优先考虑文本的可读性，通常会增加字母间距和连字等，使文本在小尺寸下更清晰 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

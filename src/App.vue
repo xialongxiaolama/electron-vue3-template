@@ -1,5 +1,8 @@
 <template>
   <router-view></router-view>
+  <div class="fixed right-5 bottom-5">
+    <VueDevTools />
+  </div>
 </template>
 <script setup lang="ts">
 const router = useRouter()

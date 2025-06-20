@@ -1,9 +1,6 @@
 <template>
   <div class="layout-main">
     <slot></slot>
-    <div class="fixed right-5 bottom-5">
-      <VueDevTools />
-    </div>
   </div>
 </template>
 

@@ -49,7 +49,7 @@ project-name/
 
 ## 项目环境
 
-node : v20.9.0
+node >: v20
 
 python : 3.9
 <!-- node-gyp@9.4 依赖于python 中的distutils 。从python3.11开始distutils 被setuptools 工具替代 -->
@@ -57,13 +57,13 @@ python : 3.9
 ## 快速开始
 
 ```sh
-# 推荐安装 pnpm node > v18
+# 推荐安装 pnpm node > v20
 npm i -g pnpm 
 
 # 安装依赖
 pnpm i
 
-# 如果需要使用serialport 插件,需要运行 (新版本node 已经包含了这些模块,不用瞎子啊)
+# 如果需要使用serialport 插件,需要运行 (新版本node 已经包含了这些模块,不用下载)
 # serialport 插件包含C++扩展,需要 node-gyp 将C++编译为 node 可加载.node 二进制模块
 # node-gyp 基于GYP 构建系统, GYP时python编写, 所以运行时需要python 环境和 window 原生C++的相关开发依赖
 # npm --python-mirror=https://npmmirror.com/mirrors/python/  install --global windows-build-tools

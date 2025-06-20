@@ -32,6 +32,7 @@
 import { Main, Aside, Header, Footer } from './index'
 import useLayoutStore from '@/store/app/layout';
 import useThemeStore from '@/store/app/theme'
+
 const themeStore = useThemeStore()
 const layoutStore = useLayoutStore()
 
