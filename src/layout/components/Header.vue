@@ -4,10 +4,10 @@
       <Tag value="Primary">{{ env }}</Tag>
     </div>
     <div class="btn-list flex">
-      <span @click="jumpSettings"> {{ $t('setting.title') }}</span>
-      <span @click="minimize"> _ </span>
-      <span @click="maximize"> [] </span>
-      <span @click="close"> X </span>
+      <span @click="jumpSettings" class="i-tabler-settings text-lg"/>
+      <span @click="minimize" class="i-tabler-minimize text-lg"/>
+      <span @click="maximize" class="i-tabler-maximize text-lg"/>
+      <span @click="close" class="i-tabler-x text-lg"/>
     </div>
   </div>
 </template>

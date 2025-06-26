@@ -17,10 +17,12 @@ function closeDevTools(){
 }
 
 ipcRenderer.on('devtools-open-success',()=>{
+  console.log('开')
   isOpen.value = true
   sessionStorage.setItem('DEVTOOLS_STATE',true+'')
 })
 ipcRenderer.on('devtools-closed',()=>{
+  console.log('关')
   isOpen.value = false
   sessionStorage.setItem('DEVTOOLS_STATE','')
 })

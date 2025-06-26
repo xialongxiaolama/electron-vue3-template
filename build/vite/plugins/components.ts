@@ -5,9 +5,7 @@
 import Components from 'unplugin-vue-components/vite'
 
 import {
-  ElementPlusResolver,
-  VueUseComponentsResolver,
-  QuasarResolver
+  VueUseComponentsResolver
 } from 'unplugin-vue-components/resolvers'
 
 import {PrimeVueResolver} from '@primevue/auto-import-resolver';
@@ -23,9 +21,7 @@ export const AutoRegistryComponents = () =>{
     include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
     exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
     resolvers: [
-      ElementPlusResolver(),
       PrimeVueResolver(),
-      QuasarResolver({ importStyle: 'css' }), // 确保样式自动加载
       VueUseComponentsResolver(),
     ]
   });

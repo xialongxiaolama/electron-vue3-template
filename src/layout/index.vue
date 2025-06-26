@@ -31,11 +31,16 @@
 <script setup name="Layout">
 import { Main, Aside, Header, Footer } from './index'
 import useLayoutStore from '@/store/app/layout';
-import useThemeStore from '@/store/app/theme'
+import useThemeStore, { applyThemeVars } from '@/store/app/theme'
 
 const themeStore = useThemeStore()
 const layoutStore = useLayoutStore()
-
+// 监听主题样式变换 ： 更新
+watch(
+  () => themeStore.$state,
+  (val) => applyThemeVars(themeStore),
+  { deep: true, immediate: true }
+)
 </script>
 
 <style lang="scss">

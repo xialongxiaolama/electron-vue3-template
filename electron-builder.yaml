@@ -1,0 +1,47 @@
+ # @see https://www.electron.build/configuration/configuration
+# serialport 这种原生依赖不能打包到asar,会导致引用失败 asarUnpack 解包
+productName: ruibreath-desktop
+appId: com.breathhome.ruibreath
+asar: true
+asarUnpack: # 将一些原生依赖打包到asar中 避免打包到asar中；原生资源不能直接从 asar 包中加载，必须解包出来。
+  - "**/node_modules/serialport/**"
+  - "**/node_modules/@serialport/**"
+  - "**/*.node"
+
+directories:
+  output: "release/${version}"
+
+files:
+  - "dist/**/*"
+  - "!**/node_modules/**"
+
+extraResources: # 将一些额外的资源文件打包到resource目录下
+  - from: "./src/test.txt"
+    to: "./test.txt"
+
+mac:
+  artifactName: "${productName}_${version}.${ext}"
+  icon: "dist/icon_rui.ico"
+  target:
+    - dmg
+
+win:
+  icon: "dist/icon_rui.ico"
+  target:
+    - target: nsis
+      arch:
+        - ia32
+        - x64 # 打包版本 32位和64位
+  artifactName: "${productName}_${version}.${ext}"
+
+nsis:
+  shortcutName: "瑞谱斯客户端"
+  oneClick: false # 禁用一键安装 ,允许用户交互
+  perMachine: true # 
+  allowToChangeInstallationDirectory: true # 可修改安装路径
+  deleteAppDataOnUninstall: false # 卸载时删除数据
+  createDesktopShortcut: true # 创建桌面快捷方式
+  createStartMenuShortcut: true # 创建开始菜单快捷方式
+  installerHeaderIcon: "dist/icon_rui.ico"
+  installerIcon: "dist/icon_rui.ico"
+  artifactName: "${productName}_${version}_setup.${ext}"

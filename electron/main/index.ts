@@ -111,6 +111,7 @@ function setupAPPListeners(){
 
   // 在应用开始关闭进程时触发
   app.on('before-quit',()=>{
+    console.log('退出devtool工具')
     vueDevTools.closeDevTools()
   })
 

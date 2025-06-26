@@ -1,0 +1,23 @@
+该文件是对打包配置文件 : electron-builder.json5 的笔记
+
+asar : 是否打包成安装引导程序
+asarUnpack : 指定哪些文件或文件夹在打包成 asar 包时不要被打进 asar，而是单独解包到安装目录下resources/app.asar.unpacked 目录。
+典型用途：
+    原生模块（如 serialport、usb、node-hid 等）不能直接从 asar 包中加载，必须解包出来。
+    你只需要在 Electron 代码里像平常一样 require('serialport')，Electron 会自动去 app.asar.unpacked 里找。
+
+extraResources : 指定额外的文件或文件夹，在打包时原样复制到最终的应用安装目录（resources 目录下），不会被打进 asar 包。
+典型用途：
+    需要在运行时动态访问的资源文件（如数据库、配置文件、驱动、DLL、图片、外部脚本等）。
+    这些文件不会自动出现在 require 路径下，需要你在代码中用绝对路径访问
+"extraResources": [
+    {
+      "from": "./src/test.txt",
+      "to": "./test.txt"
+    }
+],
+
+files: 用来指定哪些文件和文件夹会被打包进最终的应用安装包（如 asar 包、app 目录等）。
+你可以通过它来包含或排除特定的文件/目录。
+以 ! 开头的是排除规则。
+没有 ! 的是包含规则。
