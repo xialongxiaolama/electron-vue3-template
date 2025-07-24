@@ -33,7 +33,6 @@ export default useThemeStore;
 // 自动同步到 CSS 变量
 export function applyThemeVars(themeStore: ReturnType<typeof useThemeStore>) {
   const root = document.documentElement
-  console.log( '111' , root, themeStore.$state)
   Object.entries(themeStore.$state).forEach(([key, value]) => {
     root.style.setProperty(
       `--${key.replace(/[A-Z]/g, m => '-' + m.toLowerCase())}`,

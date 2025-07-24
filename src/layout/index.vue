@@ -44,9 +44,4 @@ watch(
 </script>
 
 <style lang="scss">
-.diy-theme {
-  --aside-bg: v-bind('themeStore.asideBg');
-  --header-bg: v-bind('themeStore.headerBg');
-  --main-bg: v-bind('themeStore.mainBg');
-}
 </style>

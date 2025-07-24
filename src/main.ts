@@ -17,7 +17,6 @@ import 'virtual:uno.css'
 
 // Make sure to invoke devtools connect function before creating Vue App, otherwise it might not work as expected.
 const openState = sessionStorage.getItem('DEVTOOLS_STATE')
-console.log(openState)
 // TODO 监听工具初始化后连接
 openState&&devtools.connect()
 
