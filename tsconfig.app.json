@@ -20,7 +20,7 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "preserve",
-    "types": ["element-plus/global","primevue/config","node","vite-plugin-vue-layouts/client","vite/client",
+    "types": ["element-plus/global","primevue/config","node","vite/client",
       "unplugin-vue-router/client"],
     /* Linting */
     "strict": true,

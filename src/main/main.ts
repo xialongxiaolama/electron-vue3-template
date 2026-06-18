@@ -1,14 +1,11 @@
 import { app, BrowserWindow, shell, ipcMain ,type BrowserWindowConstructorOptions} from 'electron'
 import path from 'node:path'
-import { vueDevTools } from './devtools'
 import { createTray } from "./tray"
 import { createMenu } from './menu'
 import { shortcutManager , defaultShortcuts } from './shortcut'
 import setupIPC from './ipc'
 import os from 'node:os'
-import { ROOT_PATH , __dirname , windowConfig , menuConfig } from './app.config'
-
-// Or if you can not use ES6 imports
+import { ROOT_PATH, __dirname , windowConfig , menuConfig } from './app.config'
 
 // The built directory structure
 //
@@ -18,7 +15,7 @@ import { ROOT_PATH , __dirname , windowConfig , menuConfig } from './app.config'
 // │ └─┬ preload
 // │   └── index.mjs   > Preload-Scripts
 // ├─┬ dist
-// │ └── index.html    > Electron-Renderer
+// │ └─ index.html    > Electron-Renderer
 //
 // import.meta.devServerUrl 当前文件的路径
 // fileURLToPath 将url转换为文件路径 可以兼容跨平台
@@ -57,8 +54,6 @@ function createWindow(windowConfig:BrowserWindowConstructorOptions) {
     mainWindow.loadFile(indexHtml)
   } else {
     mainWindow.loadURL(devServerUrl)
-    // Open devTool if the app is not packaged
-    mainWindow.webContents.openDevTools()
   }
   // 窗口首次渲染完成显示
   mainWindow.on('ready-to-show',()=>{
@@ -111,7 +106,7 @@ function setupAPPListeners(){
 
   // 在应用开始关闭进程时触发
   app.on('before-quit',()=>{
-    vueDevTools.closeDevTools()
+
   })
 
   // 所有窗口关闭,并且应用准备退出前 
@@ -139,7 +134,6 @@ function setupAPPListeners(){
 // 应用启动
 async function bootstrap() {
   initApp()
-  
   await app.whenReady()
   setupIPC()
   createMenu(menuConfig)

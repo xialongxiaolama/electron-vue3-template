@@ -19,7 +19,7 @@ export const windowConfig:Electron.BrowserWindowConstructorOptions = {
   transparent: false,
   backgroundColor:'2d2d2d',
   show:false,
-  icon: path.join(ROOT_PATH.public, 'icon_rui.ico'),
+  icon: path.join(ROOT_PATH.public, 'icon.ico'),
   webPreferences: {
     sandbox: true,                // 启用沙盒模式 
     nodeIntegration: false,       // 渲染进程是否Node.js 集成

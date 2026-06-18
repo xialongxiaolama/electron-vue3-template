@@ -1,7 +1,11 @@
 import { UserConfig , defineConfig , ConfigEnv, loadEnv} from 'vite'
 import path from 'node:path'
+import { fileURLToPath } from 'url'
 import { createVitePlugins } from './build/vite/plugins/index'
 import { wrapperEnv } from './build/utils'
+
+// 在 ES 模块中模拟 __dirname
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig(( { command, mode } : ConfigEnv): UserConfig => {
@@ -19,6 +23,7 @@ export default defineConfig(( { command, mode } : ConfigEnv): UserConfig => {
       }
     },
     build:{
+      sourcemap: false,
       minify: 'esbuild',
       rollupOptions: {
         treeshake: true,
@@ -29,13 +34,6 @@ export default defineConfig(( { command, mode } : ConfigEnv): UserConfig => {
       host:true , //暴露ip
       cors:true,
     },
-    plugins: createVitePlugins(viteEnv,isBuild),
-    css:{
-      preprocessorOptions:{
-        scss:{
-          api:'modern-compiler'
-        }
-      }
-    }
+    plugins: createVitePlugins(viteEnv,isBuild)
   } 
 })

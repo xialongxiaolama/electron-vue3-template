@@ -4,18 +4,6 @@
  */
 
 import VueRouter from 'unplugin-vue-router/vite'
-// import Layouts from 'vite-plugin-vue-layouts';
-/**
- *  为自动生成的路由生成 外层layout布局
- * 
- *  */
-// 未生效
-// export const vueRouterLayoutPlugin = () => {
-//   return Layouts({
-//     layoutsDirs: '/src/layout',
-//     pagesDirs: '/src/views'
-//   })
-// }
 
 export const vueRouterPlugin = () => {
   return VueRouter({

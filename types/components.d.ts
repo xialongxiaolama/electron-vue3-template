@@ -8,10 +8,17 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Button: typeof import('primevue/button')['default']
     ConfirmDialog: typeof import('primevue/confirmdialog')['default']
-    QBadge: typeof import('quasar')['QBadge']
+    Editor: typeof import('primevue/editor')['default']
+    Form: typeof import('@primevue/forms/form')['default']
+    InputMask: typeof import('primevue/inputmask')['default']
+    InputOtp: typeof import('primevue/inputotp')['default']
+    InputText: typeof import('primevue/inputtext')['default']
+    Message: typeof import('primevue/message')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SvgIcon: typeof import('./../src/components/SvgIcon/index.vue')['default']
     Tag: typeof import('primevue/tag')['default']
     Toast: typeof import('primevue/toast')['default']
   }

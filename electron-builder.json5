@@ -3,8 +3,8 @@
  * @see https://www.electron.build/configuration/configuration
  */
 {
-  "productName": "ruibreath-desktop",
-  "appId": "com.breathhome.ruibreath",
+  "productName": "xxx客户端",
+  "appId": "com.test.xxx",
   "asar": true,
   "directories": {
     "output": "release/${version}"
@@ -23,14 +23,7 @@
   },
   "win": {
     "icon": "dist/icon.ico",
-    "target": [
-      {
-        "target": "nsis",
-        "arch": [
-          "ia32","x64" // 打包版本 32位和64位
-        ]
-      }
-    ],
+    "target": "nsis",
     "artifactName": "${productName}_${version}.${ext}"
   },
   "nsis": {

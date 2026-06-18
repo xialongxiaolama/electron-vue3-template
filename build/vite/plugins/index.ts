@@ -1,12 +1,11 @@
 import vue from '@vitejs/plugin-vue'
-import vueSetupExtend from 'vite-plugin-vue-setup-extend'
+import vueDevTools from 'vite-plugin-vue-devtools'
 import { electronBuild } from './electron'
 import { PluginOption } from 'vite'
 import { vueRouterPlugin } from './vueRouter'
 import { AutoImportDeps } from './autoImport';
 import { AutoRegistryComponents } from './components'
 import { ConfigProgressPlugin } from './progress'
-import { ConfigRestartPlugin } from './restart';
 import { SvgIconsPlugin } from './svgIcon';
 import { configUnocss } from './unocss';
 // import { ConfigCompressPlugin } from './compress';
@@ -17,11 +16,8 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const vitePlugins: (PluginOption | PluginOption[])[] = [
     //自动生成路由 要放在vue前
     vueRouterPlugin(),
-    
     vue(),
-
-    // setup自动导入ref等语法糖
-    vueSetupExtend(),
+    vueDevTools()
   ]
   
   //自动引入SVG图标
@@ -36,9 +32,6 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   // electron 构建
   vitePlugins.push(electronBuild(isBuild))
   
-  // 自动重启
-  vitePlugins.push(ConfigRestartPlugin())
-
   // UnoCSS支持
   vitePlugins.push(configUnocss())
 
