@@ -8,17 +8,6 @@ import VueRouter from 'unplugin-vue-router/vite'
 /**
  *  为自动生成的路由生成 外层layout布局
  * 
- * src/
-    ├── layouts/
-    │   ├── DefaultLayout.vue   // 默认布局
-    │   ├── AdminLayout.vue     // 管理后台布局
-    ├── pages/
-    │   ├── Home.vue
-    │   ├── About.vue
-    │   ├── admin/
-    │   │   ├── Dashboard.vue
-    │   │   ├── Settings.vue
- * 
  *  */
 // 未生效
 // export const vueRouterLayoutPlugin = () => {
@@ -37,7 +26,7 @@ export const vueRouterPlugin = () => {
       //   // exclude: ['**/components/**'],
       // },
       {
-        src: 'src/views',
+        src: 'src/renderer/views',
         path: '',
       },
     ], //生成路由文件夹

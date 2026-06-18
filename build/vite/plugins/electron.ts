@@ -5,7 +5,7 @@ export const electronBuild = ( isBuild: boolean )=>{
 
  return createElectronPlugin({
     main:{
-      entry:'electron/main/index.ts',
+      entry:'src/main/main.ts',
       vite:{
         build: {
           minify: isBuild,
@@ -17,7 +17,7 @@ export const electronBuild = ( isBuild: boolean )=>{
       }
     },
     preload:{
-      input: 'electron/preload/index.ts',
+      input: 'src/preload/index.ts',
       vite: {
         build: {
           sourcemap: 'inline',

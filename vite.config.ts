@@ -14,6 +14,8 @@ export default defineConfig(( { command, mode } : ConfigEnv): UserConfig => {
       alias:{
         '@': path.resolve(__dirname,'./src'),
         '#': path.resolve(__dirname,'./types'),
+        '@common': path.resolve(__dirname,'./src/common'),
+        '@renderer': path.resolve(__dirname,'./src/renderer')
       }
     },
     build:{

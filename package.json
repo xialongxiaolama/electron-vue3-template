@@ -1,11 +1,12 @@
 {
   "name": "electron-vite-vue3",
   "author": "luoweihao",
-  "main": "dist/electron/main/index.js",
+  "main": "dist/electron/main/main.js",
   "version": "0.0.1",
   "description": "重构",
   "type": "module",
   "scripts": {
+    "postinstall": "electron-builder install-app-deps",
     "dev": "vite",
     "vue-tools": "vue-devtools",
     "build": "vite build && electron-builder",
@@ -13,24 +14,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@primevue/forms": "^4.3.5",
-    "@primevue/themes": "^4.3.5",
-    "@quasar/extras": "^1.17.0",
-    "element-plus": "^2.10.2",
     "node-hid": "^3.2.0",
-    "pinia": "^3.0.3",
-    "pinia-plugin-persistedstate": "^4.3.0",
-    "primevue": "^4.3.5",
-    "quasar": "^2.18.1",
     "serialport": "^12.0.0",
-    "usb": "^2.15.0",
-    "vue": "^3.5.17",
-    "vue-i18n": "^10.0.7",
-    "vue-router": "^4.5.1",
-    "zod": "^3.25.67"
+    "usb": "^2.15.0"
   },
   "devDependencies": {
     "@primevue/auto-import-resolver": "^4.3.5",
+    "@primevue/forms": "^4.3.5",
+    "@primevue/themes": "^4.3.5",
+    "@quasar/extras": "^1.17.0",
     "@quasar/vite-plugin": "^1.9.0",
     "@types/node": "^22.15.32",
     "@types/nprogress": "^0.2.3",
@@ -38,8 +30,13 @@
     "@vue/devtools": "^7.7.6",
     "@vueuse/core": "^12.8.2",
     "electron": "^33.4.11",
-    "electron-builder": "^25.1.8",
+    "electron-builder": "^26.15.3",
+    "element-plus": "^2.10.2",
     "nprogress": "^0.2.0",
+    "pinia": "^3.0.3",
+    "pinia-plugin-persistedstate": "^4.3.0",
+    "primevue": "^4.3.5",
+    "quasar": "^2.18.1",
     "sass-embedded": "^1.89.2",
     "tree-kill": "^1.2.2",
     "typescript": "~5.6.3",
@@ -58,16 +55,10 @@
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-layouts": "^0.11.0",
     "vite-plugin-vue-setup-extend": "^0.4.0",
-    "vue-tsc": "^2.2.10"
-  },
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "@serialport/bindings-cpp",
-      "usb"
-    ],
-    "onlyBuiltDependencies": [
-      "electron",
-      "node-hid"
-    ]
+    "vue": "^3.5.17",
+    "vue-i18n": "^10.0.7",
+    "vue-router": "^4.5.1",
+    "vue-tsc": "^2.2.10",
+    "zod": "^3.25.67"
   }
 }

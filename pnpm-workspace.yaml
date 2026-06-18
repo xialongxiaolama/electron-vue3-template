@@ -1,0 +1,8 @@
+allowBuilds:
+  '@parcel/watcher': true
+  '@serialport/bindings-cpp': true
+  electron: true
+  electron-winstaller: true
+  esbuild: true
+  node-hid: true
+  usb: true

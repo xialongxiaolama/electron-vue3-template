@@ -16,13 +16,13 @@
   ],
   "mac": {
     "artifactName": "${productName}_${version}.${ext}",
-    "icon": "dist/icon_rui.ico",
+    "icon": "dist/icon.ico",
     "target": [
       "dmg"
     ]
   },
   "win": {
-    "icon": "dist/icon_rui.ico",
+    "icon": "dist/icon.ico",
     "target": [
       {
         "target": "nsis",
@@ -34,13 +34,13 @@
     "artifactName": "${productName}_${version}.${ext}"
   },
   "nsis": {
-    "shortcutName": "瑞谱斯客户端",
+    "shortcutName": "xxx客户端",
     "oneClick": false, // 禁用一键安装 ,允许用户交互
     "perMachine": true, // 
     "allowToChangeInstallationDirectory": true, // 可修改安装路径
     "deleteAppDataOnUninstall": false, // 卸载时删除数据
     "createDesktopShortcut": true,  // 创建桌面快捷方式
     "createStartMenuShortcut": true, // 创建开始菜单快捷方式
-    "installerHeaderIcon": "dist/icon_rui.ico",
+    "installerHeaderIcon": "dist/icon.ico",
   }
 }

@@ -12,33 +12,50 @@ project-name/
 │   │   └── ...       #路由自动导入、组件按需加载等插件相关配置 
 │   └── utils.ts
 │
-├── electron/
-│   ├── main/         #electron主进程  
-│   │   ├── ipc/      #进程间通讯文件
-│   │   ├── menu.ts   #菜单配置
-│   │   ├── ...
-│   │   └── tray.ts   #托盘配置
-│   └── preload/      #预加载文件 向渲染进程暴露主进程接口
-│
 ├── public/
 │
 ├── release/
 │   └── x.x.x         #打包版本
 │
-├── type/             #ts声明文件
-│
-├── src/              #渲染进程页面
-│    ├── assets/      #静态资源
-│    ├── components/  #公共组件 该目录下组件自动注册
-│    ├── layout/      #页面布局
-│    ├── locals/      #i18n
-│    ├── router/      #
-│    ├── store/        
-│    ├── utils/        
-│    ├── views/ 
-│    ├── ...
-│    └── App.vue       
-
+├── src/                   # 渲染进程页面
+│   ├── common/            # 【共享层】主进程和渲染进程共用的代码
+│   │   ├── types/         # 接口定义 (ITransport, IProtocol, DeviceInfo)
+│   │   │   ├── device.ts  # 硬件相关的接口和枚举
+│   │   │   ├── task.ts    # 任务相关的接口
+│   │   │   └── ipc.ts     # IPC 通讯协议的类型定义
+│   │   └── utils/         # 跨进程的工具函数 (如：字节处理、CRC计算)
+│   │
+│   ├── main/              # 【主进程层】核心逻辑
+│   │   ├── core/          # 核心框架
+│   │   │   ├── device-manager.ts   # 单例：管理所有设备实例的生命周期
+│   │   │   ├── device-instance.ts  # 类：Transport + Protocol 的粘合剂
+│   │   │   └── task-runner.ts      # 类：负责重试、超时控制的任务执行器
+│   │   ├── hardware/      # 硬件实现细节 (基础设施层)
+│   │   │   ├── transports/         # 传输实现 (ITransport 的子类)
+│   │   │   │   ├── serial.transport.ts
+│   │   │   │   ├── usb.transport.ts
+│   │   │   │   └── mock.transport.ts
+│   │   │   ├── protocols/          # 协议实现 (IProtocol 的子类)
+│   │   │   │   ├── sensor.protocol.ts
+│   │   │   │   ├── motor.protocol.ts
+│   │   │   │   └── modbus.protocol.ts
+│   │   │   └── framers/            # 粘包处理逻辑
+│   │   │       └── default.framer.ts
+│   │   ├── tasks/         # 具体的业务逻辑序列 (Task 模式)
+│   │   │   ├── init-device.task.ts
+│   │   │   └── upgrade-firmware.task.ts
+│   │   ├── ipc/           # IPC 通讯分发
+│   │   │   └── handlers.ts         # 所有的 ipcMain.handle 写在这里
+│   │   └── main.ts        # 主进程入口
+│   │
+│   ├── preload/           # 【预加载层】
+│   │   └── index.ts       # 使用 contextBridge 暴露安全接口
+│   │
+│   └── renderer/          # 【渲染进程层】UI 界面
+│       ├── api/           # 封装对 window.deviceAPI 的调用
+│       ├── hooks/         # 封装 React/Vue 的 Hook (如：useDeviceData)
+│       ├── store/         # 全局状态管理 (Pinia/Redux)，管理设备连接状态
+│       └── views/         # UI 页面
 ```
 ## 特性
 - 组件按需引入,组件自动注册,直接引用使用
