@@ -4,18 +4,19 @@
       <Tag value="Primary">{{ env }}</Tag>
     </div>
     <div class="btn-list flex">
+      <span @click="jumpSettings">主题</span>
       <span @click="jumpSettings"> {{ $t('setting.title') }}</span>
-      <span @click="minimize"> _ </span>
-      <span @click="maximize"> [] </span>
-      <span @click="close"> X </span>
+      <span @click="handleMinimize"> _ </span>
+      <span @click="handleMaximize"> [] </span>
+      <span @click="handleClose"> X </span>
     </div>
   </div>
 </template>
 
 <script setup name="Header">
 import { useConfirm } from 'primevue/useconfirm'
+import { appApi } from '@renderer/api/app'
 
-// 使用 useI18n 获取 $t 方法
 const router = useRouter()
 const confirm = useConfirm()
 const env = process.env.NODE_ENV
@@ -23,13 +24,16 @@ const env = process.env.NODE_ENV
 function jumpSettings() {
   router.push('/setting')
 }
-function minimize() {
-  ipcRenderer.send('min-window')
+
+function handleMinimize() {
+  appApi.minimize()
 }
-function maximize() {
-  ipcRenderer.send('max-window')
+
+function handleMaximize() {
+  appApi.maximize()
 }
-function close() {
+
+function handleClose() {
   confirm.require({
     message: '退出软件',
     header: '提示',
@@ -43,8 +47,8 @@ function close() {
       label: '确定',
     },
     accept: () => {
-      ipcRenderer.send('close-window')
-    }
+      appApi.close()
+    },
   })
 }
 </script>

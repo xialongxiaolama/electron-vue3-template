@@ -19,6 +19,7 @@ export default defineConfig(( { command, mode } : ConfigEnv): UserConfig => {
         '@': path.resolve(__dirname,'./src'),
         '#': path.resolve(__dirname,'./types'),
         '@common': path.resolve(__dirname,'./src/common'),
+        '@main': path.resolve(__dirname,'./src/main'),
         '@renderer': path.resolve(__dirname,'./src/renderer')
       }
     },

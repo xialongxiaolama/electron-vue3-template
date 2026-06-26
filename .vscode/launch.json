@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Electron: Main Process",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      // 这里的路径取决于你的 package.json 中的脚本，通常是启动 electron
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"], 
+      "sourceMaps": true,
+      // [关键] 告诉 VS Code 在编译后的文件夹中寻找 .js.map 文件
+      "outFiles": [
+        "${workspaceFolder}/dist/electron/**/*.js"
+      ],
+      "skipFiles": [
+        "<node_internals>/**",
+        "node_modules/**"
+      ],
+      // 自动附加到子进程（Electron 会开启主进程和渲染进程）
+      "autoAttachChildProcesses": true
+    }
+  ]
+}

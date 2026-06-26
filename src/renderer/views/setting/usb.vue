@@ -1,38 +1,41 @@
 <template>
     <div>
-      <Button  severity="success" label="获取设备列表" @click.once="getDeviceList"/>
-      <Button  severity="success" :label="$t('device.openUsbDetect')" @click.once="openUsbDetect"/>
-      <Button  severity="success" label="关闭设备监听" @click.once="closeUsbDetect"/>
+      <Button severity="success" label="获取设备列表" @click="getDeviceList" />
+      <Button severity="success" :label="$t('device.openUsbDetect')" @click="startDetect" />
+      <Button severity="success" label="关闭设备监听" @click="stopDetect" />
+
+      <div v-if="usbList.length" class="mt-4">
+        <h3>USB 设备</h3>
+        <div v-for="(d, i) in usbList" :key="i">{{ d }}</div>
+      </div>
     </div>
 </template>
 
-<script setup lang='ts' name=''>
-// const { proxy } = getCurrentInstance()
-// const router = useRouter()
-// const route = useRoute()
-const getDeviceList = () => {
-  ipcRenderer.invoke('get-usb-devices').then((res) => {
-    console.log(`output->res`,res)
-  })
-}
-const openUsbDetect = () => {
-  ipcRenderer.invoke('open-usb-detect')
+<script setup lang='ts'>
+import { useUsbDetect } from '@renderer/hooks/useUsbDetect'
 
-  ipcRenderer.on('usb-attach', (_event, device) => {
-    console.log(`output->device`,device)
-  })
-  ipcRenderer.on('usb-detach', (_event, arg) => {
-    console.log(`output->arg`,arg)
-  })
-}
-const closeUsbDetect = () => {
-  ipcRenderer.invoke('close-usb-detect')
+const {
+  usbList,
+  attachedDevices,
+  detachedDevices,
+  detecting,
+  start,
+  stop,
+  refreshUsbList,
+  refreshHidList,
+  refreshPortList,
+} = useUsbDetect()
 
-  ipcRenderer.removeAllListeners('usb-attach')
-  ipcRenderer.removeAllListeners('usb-detach')
+const getDeviceList = async () => {
+  await refreshUsbList()
+  await refreshHidList()
+  await refreshPortList()
 }
+
+const startDetect = () => start()
+const stopDetect = () => stop()
 </script>
 
 <style lang='scss' scoped>
-    
+
 </style>

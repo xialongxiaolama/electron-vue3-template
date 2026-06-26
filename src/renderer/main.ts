@@ -27,7 +27,7 @@ app.use(PrimeVue, {
     nonce: '...'
   }
 })
-import('@renderer/usbPlugins/USBManage.ts')
+// USB 设备管理已迁移到主进程，渲染进程通过 window.electronAPI 交互
 
 app.use(ConfirmationService)
 app.use(ToastService)

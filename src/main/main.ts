@@ -6,7 +6,7 @@ import { shortcutManager , defaultShortcuts } from './shortcut'
 import setupIPC from './ipc'
 import os from 'node:os'
 import { ROOT_PATH, __dirname , windowConfig , menuConfig } from './app.config'
-
+import { DeviceManager } from './core/device-manager'
 // The built directory structure
 //
 // ├─┬ dist-electron
@@ -71,6 +71,8 @@ function createWindow(windowConfig:BrowserWindowConstructorOptions) {
     if (url.startsWith('https:')) shell.openExternal(url)
     return { action: 'deny' }
   })
+
+  mainWindow.webContents.openDevTools()
   return mainWindow
 }
 
@@ -135,6 +137,13 @@ function setupAPPListeners(){
 async function bootstrap() {
   initApp()
   await app.whenReady()
+
+  // 注册设备插件（在 IPC 之前，确保 handler 可使用 DeviceManager）
+  const { PluginRegistry } = await import('./plugins/plugin-registry')
+  const registry = new PluginRegistry(DeviceManager.getInstance())
+
+  await registry.autoRegister()
+
   setupIPC()
   createMenu(menuConfig)
   setupAPPListeners()

@@ -6,17 +6,19 @@
     <main class="flex flex-col w-full h-full overflow-hidden">
       <Header v-if="layoutStore.headerDisplay" class="shrink-0"></Header>
       <Main class="w-full h-full">
-        <router-view v-slot="{ Component, route }">
-          <transition name="el-fade-in" mode="out-in">
+        <Suspense>
+          <template #fallback>
+            页面加载中....
+          </template>
+          <router-view v-slot="{ Component, route }">
             <keep-alive :include="[]">
               <component
-                :is="Component"
-                :key="route.path"
-                class="app-container-grow"
+              :is="Component"
+              :key="route.path"
               />
             </keep-alive>
-          </transition>
-        </router-view>
+          </router-view>
+        </Suspense>
       </Main>
       <Footer v-if="layoutStore.footerDisplay" class="shrink-0 h-10 leading-10"></Footer>
     </main>
@@ -32,6 +34,7 @@
 import { Main, Aside, Header, Footer } from './index'
 import useLayoutStore from '@renderer/store/app/layout';
 import useThemeStore from '@renderer/store/app/theme'
+import { Suspense } from 'vue';
 
 const themeStore = useThemeStore()
 const layoutStore = useLayoutStore()
@@ -44,4 +47,5 @@ const layoutStore = useLayoutStore()
   --header-bg: v-bind('themeStore.headerBg');
   --main-bg: v-bind('themeStore.mainBg');
 }
+
 </style>

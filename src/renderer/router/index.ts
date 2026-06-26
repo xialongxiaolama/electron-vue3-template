@@ -15,8 +15,7 @@ const router = createRouter({
 if (import.meta.hot) {
   handleHotUpdate(router)
 }
-router.beforeEach((to, from, next) => {
-  console.log(to,from);
+router.beforeEach((_to, _from, next) => {
   NProgress.start()
   next()
 })

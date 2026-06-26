@@ -8,22 +8,29 @@
     >
       <span>{{ item.description }}</span>
 
-      <div
+      <InputText type="text" v-model="item.key"  @change="handleChange"/>
+      <!-- <div
         class="w-48 border-1 border-blue"
         @focus="addBindKeyListener(item)"
         @blur="removeBindKeyListener(item)"
         :tabindex="index"
       >
         {{ item.key }}
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script setup name="Setting">
+// import { appApi } from '@renderer/api/app'
+
 const router = useRouter()
 const keyBoardArr = ref([])
 let keydownListener = null
+
+function handleChange(item){
+  console.log('处理函数---', item);
+}
 
 function addBindKeyListener(item) {
   const keys = []
@@ -39,17 +46,20 @@ function addBindKeyListener(item) {
   }
   document.addEventListener('keydown', keydownListener)
 }
+
 function removeBindKeyListener(item) {
   document.removeEventListener('keydown', keydownListener)
-  ipcRenderer.invoke('update-shortcut-key', item.action, item.key)
+  window.electronAPI.app.updateShortcut(item.action, item.key)
   keydownListener = null
 }
 
 function goHome() {
   router.push('/home')
 }
-ipcRenderer.invoke('get-all-shortcuts').then((res) => {
+
+window.electronAPI.app.getAllShortcuts().then((res) => {
   keyBoardArr.value = res
+  console.log('快捷键数组',keyBoardArr);
 })
 </script>
 

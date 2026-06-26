@@ -17,45 +17,57 @@ project-name/
 ├── release/
 │   └── x.x.x         #打包版本
 │
-├── src/                   # 渲染进程页面
-│   ├── common/            # 【共享层】主进程和渲染进程共用的代码
-│   │   ├── types/         # 接口定义 (ITransport, IProtocol, DeviceInfo)
-│   │   │   ├── device.ts  # 硬件相关的接口和枚举
-│   │   │   ├── task.ts    # 任务相关的接口
-│   │   │   └── ipc.ts     # IPC 通讯协议的类型定义
-│   │   └── utils/         # 跨进程的工具函数 (如：字节处理、CRC计算)
-│   │
-│   ├── main/              # 【主进程层】核心逻辑
-│   │   ├── core/          # 核心框架
-│   │   │   ├── device-manager.ts   # 单例：管理所有设备实例的生命周期
-│   │   │   ├── device-instance.ts  # 类：Transport + Protocol 的粘合剂
-│   │   │   └── task-runner.ts      # 类：负责重试、超时控制的任务执行器
-│   │   ├── hardware/      # 硬件实现细节 (基础设施层)
-│   │   │   ├── transports/         # 传输实现 (ITransport 的子类)
-│   │   │   │   ├── serial.transport.ts
-│   │   │   │   ├── usb.transport.ts
-│   │   │   │   └── mock.transport.ts
-│   │   │   ├── protocols/          # 协议实现 (IProtocol 的子类)
-│   │   │   │   ├── sensor.protocol.ts
-│   │   │   │   ├── motor.protocol.ts
-│   │   │   │   └── modbus.protocol.ts
-│   │   │   └── framers/            # 粘包处理逻辑
-│   │   │       └── default.framer.ts
-│   │   ├── tasks/         # 具体的业务逻辑序列 (Task 模式)
-│   │   │   ├── init-device.task.ts
-│   │   │   └── upgrade-firmware.task.ts
-│   │   ├── ipc/           # IPC 通讯分发
-│   │   │   └── handlers.ts         # 所有的 ipcMain.handle 写在这里
-│   │   └── main.ts        # 主进程入口
-│   │
-│   ├── preload/           # 【预加载层】
-│   │   └── index.ts       # 使用 contextBridge 暴露安全接口
-│   │
-│   └── renderer/          # 【渲染进程层】UI 界面
-│       ├── api/           # 封装对 window.deviceAPI 的调用
-│       ├── hooks/         # 封装 React/Vue 的 Hook (如：useDeviceData)
-│       ├── store/         # 全局状态管理 (Pinia/Redux)，管理设备连接状态
-│       └── views/         # UI 页面
+├── src/
+├── common/types/                    ← 统一接口定义
+│   ├── device.ts                    ← DeviceDescriptor, DeviceState, DeviceMatchRule
+│   ├── transport.ts                 ← ITransport, TransportOptions（合并旧 IConnection）
+│   ├── protocol.ts                  ← IProtocol, ProtocolMessage, DecodedMessage
+│   ├── framer.ts                    ← IFramer, FrameResult
+│   ├── task.ts                      ← ITask, TaskStep, TaskResult
+│   ├── ipc.ts                       ← 通道常量 + 类型安全映射
+│   └── constants.ts                 ← 全局常量
+│
+├── main/core/                       ← 核心框架
+│   ├── device-instance.ts           ← 重写：Framer→Protocol→请求响应关联
+│   ├── device-manager.ts            ← 新增：生命周期、插件匹配、事件转发
+│   └── task-runner.ts               ← 新增：重试/超时/顺序/并行
+│
+├── main/hardware/                   ← 硬件抽象层
+│   ├── transports/
+│   │   ├── hid.transport.ts         ← 新增：USB HID
+│   │   ├── serial.transport.ts      ← 重写：串口
+│   │   └── network.transport.ts     ← 新增：TCP/UDP
+│   ├── protocols/bz/
+│   │   ├── bz.protocol.ts           ← 从 BZService 迁移
+│   │   └── bz.config.ts             ← BZ 命令表
+│   └── framers/
+│       ├── passthrough.framer.ts    ← HID 直通
+│       ├── fixed-length.framer.ts   ← 固定包长
+│       ├── delimiter.framer.ts      ← 分隔符
+│       └── header-length.framer.ts  ← 帧头+长度
+│
+├── main/plugins/                    ← 插件系统
+│   ├── plugin-registry.ts          ← 自动发现注册
+│   └── bz/index.ts                 ← BZ 插件（示例）
+│
+├── main/ipc/device.ts              ← 新增：设备 IPC handler
+│
+├── preload/                         ← 安全桥接
+│   ├── index.ts                     ← 重写：electronAPI 替代 raw ipcRenderer
+│   └── api/                         ← 类型安全 API
+│       ├── device.api.ts
+│       ├── usb.api.ts
+│       └── app.api.ts
+│
+├── renderer/                        ← 渲染层（仅 UI）
+│   ├── api/                         ← 薄封装层
+│   ├── hooks/                       ← Vue 组合式函数
+│   │   ├── useDevice.ts
+│   │   ├── useDeviceList.ts
+│   │   └── useUsbDetect.ts
+│   └── store/device/device.store.ts ← 统一设备 Store
+│
+└── types/electron.d.ts             ← 重写：window.electronAPI 类型
 ```
 ## 特性
 - 组件按需引入,组件自动注册,直接引用使用

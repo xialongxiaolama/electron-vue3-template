@@ -1,86 +1,84 @@
-import { ipcMain } from "electron";
-import { SerialPort } from 'SerialPort';
-import { HID , devices } from 'node-hid'
-import { usb , getDeviceList } from "usb";
+/**
+ * USB IPC 处理器
+ * 负责 USB 设备检测、设备列表查询
+ * 设备自动连接委托给 DeviceManager
+ *
+ * 移除旧接口：hid:openDevice, hid:sendData, hid:data:${channel}, port:createPort
+ * 这些操作现在由 Transport 层在主进程内部处理
+ */
+import { ipcMain } from 'electron'
+import { usb, getDeviceList } from 'usb'
+import { devices as hidDevices } from 'node-hid'
+import { SerialPort } from 'serialport'
+import { usbApi } from '@common/ipc/registry'
+import { DeviceManager } from '../core/device-manager'
 
-// handle 监听 ipcRenderer.invoke 事件
-// handleOnce 监听 ipcRenderer.invoke 事件,只监听一次
+export default function setupUsb(): void {
+  const manager = DeviceManager.getInstance()
+  let isDetecting = false
 
-// on  监听 ipcRenderer.send 事件
-// once  监听 ipcRenderer.send 事件,只监听一次
+  // ========== USB 热插拔检测 ==========
 
-// 区别 : send 仅用来发送信息 ,on仅监听信息
-//       invoke 发送信息,并接收返回的信息(可以返回Promise异步), handle监听信息,并返回指定内容
+  ipcMain.handle(usbApi.invoke.openDetect.channel, async (_event) => {
+    if (isDetecting) return
+    isDetecting = true
 
-export default function setupUsb(){
-  let isFirst = true
-  ipcMain.handle('usb:openDetect', async (_event) => {
-      if (isFirst) {
-        usb.on('attach', (device:usb.Device) => {
-          _event.sender.send('usb:attach', { action: 'open', device });
-        });
-        usb.on('detach', (device:usb.Device) => {
-          _event.sender.send('usb:detach', { action: 'open', device });
-        });
-        isFirst = false
+    usb.on('attach', (device: usb.Device) => {
+      console.log('设备插入', device);
+      const descriptor = device.deviceDescriptor
+
+      // 通知渲染进程有设备插入
+      _event.sender.send(usbApi.event.onAttached.channel, { device })
+
+      // 尝试自动匹配并连接设备
+      const plugin = manager.matchDevice({
+        vid: descriptor.idVendor,
+        pid: descriptor.idProduct,
+        type: 'usb',
+      })
+
+      if (plugin) {
+        const deviceDescriptor = {
+          id: `usb:${descriptor.idVendor}:${descriptor.idProduct}:${device.deviceAddress}`,
+          name: plugin.descriptor.name,
+          type: 'usb' as const,
+          tag: plugin.descriptor.tag,
+          vid: descriptor.idVendor,
+          pid: descriptor.idProduct,
+        }
+        manager.connect(deviceDescriptor)
       }
-  });
+    })
 
-  ipcMain.handleOnce('usb:closeDetect', async (_event) => {
-    usb.removeAllListeners('attach');
-    usb.removeAllListeners('detach');
-  });
+    usb.on('detach', (device: usb.Device) => {
+      const descriptor = device.deviceDescriptor
 
-  // 获取usb设备列表 功能更强 
-  ipcMain.handle('usb:getList', (_event) => {
+      // 通知渲染进程有设备拔出
+      _event.sender.send(usbApi.event.onDetached.channel, { device })
+
+      // 自动断开匹配的设备
+      const deviceId = `usb:${descriptor.idVendor}:${descriptor.idProduct}:${device.deviceAddress}`
+      manager.disconnect(deviceId)
+    })
+  })
+
+  ipcMain.handle(usbApi.invoke.closeDetect.channel, async () => {
+    usb.removeAllListeners('attach')
+    usb.removeAllListeners('detach')
+    isDetecting = false
+  })
+
+  // ========== 设备列表查询 ==========
+
+  ipcMain.handle(usbApi.invoke.getList.channel, () => {
     return getDeviceList()
-  });
-  // 获取hid设备列表 功能更强 
-  ipcMain.handle('hid:getList', (_event) => {
-    return devices()
-  });
-  
-  const hidDeviceCacheMap = new Map<string,HID>()
-  
-  ipcMain.handle('hid:openDevice',(_event,vid ,pid,channel)=>{
-    try {
-      let hidDevice = hidDeviceCacheMap.get(channel)
-      if (!hidDevice) {
-        hidDevice = new HID(vid,pid);
-        hidDeviceCacheMap.set(channel,hidDevice)
-        console.log(`output->deviceInit`)
-        // 监听 HID 设备数据
-        hidDevice.on('data', (data) => {
-            _event.sender.send(`hid:data:${channel}`, data); // 转发到渲染进程
-        });
-    
-        hidDevice.on('error', (err) => {
-          console.error('HID error:', err);
-        });
-      }
-      return { success: true };
-    } catch (error) {
-      return { success: false, error: error };
-    }
-  })
-  ipcMain.handle('hid:sendData',(_event,data:number[],channel)=>{
-    try {
-      let hidDevice = hidDeviceCacheMap.get(channel)
-      if (!hidDevice) {
-        return { success: false, error: `通讯通道不存在${channel}` }
-      }
-      hidDevice.write(data)
-      return { success: true };
-    } catch (error) {
-      return { success: false, error: error };
-    }
   })
 
-  // 获取串口通信设备列表 
-  ipcMain.handle('port:getList', (_event) => {
+  ipcMain.handle(usbApi.invoke.getHidList.channel, () => {
+    return hidDevices()
+  })
+
+  ipcMain.handle(usbApi.invoke.getPortList.channel, () => {
     return SerialPort.list()
-  });
-  ipcMain.handle('port:createPort', (_event, { path, baudRate }) => {
-    return new SerialPort({ path, baudRate });
-  });
+  })
 }

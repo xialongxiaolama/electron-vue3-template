@@ -28,6 +28,7 @@
     "@types/nprogress": "^0.2.3",
     "@vitejs/plugin-vue": "^6.0.7",
     "@vueuse/core": "^12.8.2",
+    "cross-env": "^10.1.0",
     "electron": "^33.4.11",
     "electron-builder": "^26.15.3",
     "element-plus": "^2.10.2",

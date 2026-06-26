@@ -8,10 +8,11 @@ export const electronBuild = ( isBuild: boolean )=>{
       entry:'src/main/main.ts',
       vite:{
         build: {
+          sourcemap: !isBuild,
           minify: isBuild,
           outDir: 'dist/electron/main',
           rolldownOptions: {
-            external:['usb','SerialPort','node-hid'],
+            external:['usb','serialport','node-hid'],
           }
         },
       }
@@ -20,7 +21,7 @@ export const electronBuild = ( isBuild: boolean )=>{
       input: 'src/preload/index.ts',
       vite: {
         build: {
-          sourcemap: 'inline',
+          sourcemap: true,
           minify: isBuild,
           outDir: 'dist/electron/preload'
         },

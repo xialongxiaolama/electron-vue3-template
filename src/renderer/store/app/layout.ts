@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { layout , asideType } from './types'
  const useLayoutStore = defineStore('layout', {
   state: ():layout => ({
-    asideDisplay: 'none',
+    asideDisplay: 'left',
     headerDisplay: true,
     footerDisplay: false,
     isFullScreen: false,

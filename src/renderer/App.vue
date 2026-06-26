@@ -2,11 +2,11 @@
   <router-view></router-view>
 </template>
 <script setup lang="ts">
-const router = useRouter()
-const token = localStorage.getItem('token')
-if(!token){
-  router.push('/login')
-}
+// const router = useRouter()
+// const token = localStorage.getItem('token')
+// if(!token){
+//   router.push('/login')
+// }
 </script>
 
 <style scoped>

@@ -1,11 +1,12 @@
 import { ipcMain , BrowserWindow } from "electron";
+import { appApi } from '@common/ipc/registry'
 
 export default function setupWindow(){
-  ipcMain.on('min-window',(_event,args)=>{
+  ipcMain.on(appApi.send.minimize.channel,(_event)=>{
     const win = BrowserWindow.getFocusedWindow()
     win?.minimize()
   })
-  ipcMain.on('max-window',(_event,args)=>{
+  ipcMain.on(appApi.send.maximize.channel,(_event)=>{
     const win = BrowserWindow.getFocusedWindow()
     console.log('获取窗口',win);
     if (win) {
@@ -13,7 +14,7 @@ export default function setupWindow(){
       win.isMaximized() ? win.unmaximize() : win.maximize();
     }
   })
-  ipcMain.on('close-window',(_event,args)=>{
+  ipcMain.on(appApi.send.close.channel,(_event)=>{
     const win = BrowserWindow.getFocusedWindow()
     win?.close()
   })

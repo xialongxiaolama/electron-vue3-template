@@ -1,6 +1,8 @@
 import { ipcMain , Notification } from "electron";
+import { appApi } from '@common/ipc/registry'
+
 export default function setupNotify(){
-  ipcMain.handle('notify',(_event, title:string, options:Electron.NotificationConstructorOptions )=>{
+  ipcMain.handle(appApi.invoke.notify.channel,(_event, title:string, options:Electron.NotificationConstructorOptions )=>{
    const notify = new Notification({title,...options})
    notify.show()
    return new Promise((resolve, reject)=>{
