@@ -1,10 +1,9 @@
 <template>
   <div class="header flex justify-between">
     <div v-if="env && env === 'development'">
-      <Tag value="Primary">{{ env }}</Tag>
+      <el-tag>{{ env }}</el-tag>
     </div>
     <div class="btn-list flex">
-      <span @click="jumpSettings">主题</span>
       <span @click="jumpSettings"> {{ $t('setting.title') }}</span>
       <span @click="handleMinimize"> _ </span>
       <span @click="handleMaximize"> [] </span>
@@ -14,11 +13,10 @@
 </template>
 
 <script setup name="Header">
-import { useConfirm } from 'primevue/useconfirm'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { appApi } from '@renderer/api/app'
 
 const router = useRouter()
-const confirm = useConfirm()
 const env = process.env.NODE_ENV
 
 function jumpSettings() {
@@ -34,22 +32,14 @@ function handleMaximize() {
 }
 
 function handleClose() {
-  confirm.require({
-    message: '退出软件',
-    header: '提示',
-    icon: 'pi pi-exclamation-triangle',
-    rejectProps: {
-      label: '取消',
-      severity: 'secondary',
-      outlined: true,
-    },
-    acceptProps: {
-      label: '确定',
-    },
-    accept: () => {
-      appApi.close()
-    },
-  })
+  ElMessageBox.confirm('退出软件', '提示', {
+    confirmButtonText: 'OK',
+    cancelButtonText: 'Cancel',
+  }).then((result) => {
+    appApi.close()
+  }).catch((err) => {
+    console.log(err);
+  });
 }
 </script>
 

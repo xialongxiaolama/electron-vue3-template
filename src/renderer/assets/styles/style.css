@@ -62,6 +62,13 @@ button:focus-visible {
   margin: 0 auto;
   text-align: center;
 }
+.drag {
+  app-region:drag;
+}
+
+.nodrag {
+  app-region:no-drag;
+}
 
 @media (prefers-color-scheme: light) {
   :root {

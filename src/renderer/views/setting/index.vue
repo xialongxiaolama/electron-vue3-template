@@ -8,7 +8,7 @@
     >
       <span>{{ item.description }}</span>
 
-      <InputText type="text" v-model="item.key"  @change="handleChange"/>
+      <el-input type="text" v-model="item.key"  @change="handleChange"/>
       <!-- <div
         class="w-48 border-1 border-blue"
         @focus="addBindKeyListener(item)"
