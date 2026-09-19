@@ -4,12 +4,11 @@
  */
 import Components from 'unplugin-vue-components/vite'
 
-import {
-  ElementPlusResolver,
+import { ElementPlusResolver,
   VueUseComponentsResolver,
 } from 'unplugin-vue-components/resolvers'
 
-import {PrimeVueResolver} from '@primevue/auto-import-resolver';
+// import {PrimeVueResolver} from '@primevue/auto-import-resolver';
 export const AutoRegistryComponents = () =>{
   return Components({
     dirs: ['src/components'],
@@ -23,7 +22,7 @@ export const AutoRegistryComponents = () =>{
     exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
     resolvers: [
       ElementPlusResolver(),
-      PrimeVueResolver(),
+      // PrimeVueResolver(),
       VueUseComponentsResolver(),
     ]
   });

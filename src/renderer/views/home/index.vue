@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     {{bzStore.$state.imeiBZ}}
-    <InputText v-model="msg" type="text" size="small" placeholder="Small" />
-    <Button @click="send" severity="secondary" label="发送通知"/>
+    <el-input v-model="msg" type="text" size="small" placeholder="Small" />
+    <el-button @click="send" severity="secondary" label="发送通知"/>
   </div>
 </template>
 

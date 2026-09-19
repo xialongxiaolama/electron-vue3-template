@@ -23,25 +23,23 @@
     <aside v-if="layoutStore.asideDisplay==='right'" class="w-16">
       <Aside></Aside>
     </aside>
-    <Toast />
-    <ConfirmDialog></ConfirmDialog>
   </div>
 </template>
 
 <script setup name="Layout">
 import { Main, Aside, Header, Footer } from './index'
 import useLayoutStore from '@renderer/store/app/layout';
-import useThemeStore from '@renderer/store/app/theme'
+import useThemeStore, { applyThemeVars } from '@renderer/store/app/theme'
 
 const themeStore = useThemeStore()
 const layoutStore = useLayoutStore()
-
+// 监听主题样式变换 ： 更新
+watch(
+  () => themeStore.$state,
+  (val) => applyThemeVars(themeStore),
+  { deep: true, immediate: true }
+)
 </script>
 
 <style lang="scss">
-.diy-theme {
-  --aside-bg: v-bind('themeStore.asideBg');
-  --header-bg: v-bind('themeStore.headerBg');
-  --main-bg: v-bind('themeStore.mainBg');
-}
 </style>

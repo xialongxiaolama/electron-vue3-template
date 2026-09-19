@@ -1,5 +1,5 @@
 import { ipcMain } from "electron";
-import { SerialPort } from 'SerialPort';
+import { SerialPort } from 'serialport';
 import { HID , devices } from 'node-hid'
 import { usb , getDeviceList } from "usb";
 

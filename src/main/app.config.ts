@@ -1,9 +1,10 @@
 import path from 'node:path'
-import { app , Menu } from 'electron'
 import { fileURLToPath } from 'url';
+import { app , Menu } from 'electron'
 
 // 模拟COMMONJS 中的 __dirname , module中无法使用
 export const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
 export const ROOT_PATH = {
   // /dist
   dist: path.join(__dirname, '../..'),
